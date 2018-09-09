@@ -18,3 +18,9 @@ C:\Users\zhouw\Desktop\WFRead\WFRead\obj\Debug\WFRead.ElecForm.resources
 C:\Users\zhouw\Desktop\WFRead\ZJSetUpSoft\WFRead\bin\Debug\WFRead.exe.config
 C:\Users\zhouw\Desktop\WFRead\ZJSetUpSoft\WFRead\obj\Debug\WFRead.exe
 C:\Users\zhouw\Desktop\WFRead\ZJSetUpSoft\WFRead\obj\Debug\WFRead.pdb
+C:\Users\zhouw\Desktop\WFRead\ZJSetUpSoft\WFRead\bin\Debug\WFRead.exe
+C:\Users\zhouw\Desktop\WFRead\ZJSetUpSoft\WFRead\bin\Debug\WFRead.pdb
+C:\Users\zhouw\Desktop\WFRead\ZJSetUpSoft\WFRead\obj\Debug\WFRead.ElecForm.resources
+C:\Users\zhouw\Desktop\WFRead\ZJSetUpSoft\WFRead\obj\Debug\WFRead.Properties.Resources.resources
+C:\Users\zhouw\Desktop\WFRead\ZJSetUpSoft\WFRead\obj\Debug\WFRead.csproj.GenerateResource.Cache
+C:\Users\zhouw\Desktop\WFRead\ZJSetUpSoft\WFRead\obj\Debug\WFRead.csprojResolveAssemblyReference.cache

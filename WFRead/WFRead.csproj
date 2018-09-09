@@ -80,6 +80,26 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="img\Apabi Reader.jpg" />
+    <Content Include="img\AutoCAD.png" />
+    <Content Include="img\AutoCAD_2.png" />
+    <Content Include="img\Foxmail.jpg" />
+    <Content Include="img\Google浏览器.jpg" />
+    <Content Include="img\Google浏览器_2.jpg" />
+    <Content Include="img\MailThinkmail_Tool.jpg" />
+    <Content Include="img\Office2010.jpg" />
+    <Content Include="img\Office2010_2.jpg" />
+    <Content Include="img\SAP GUI.jpg" />
+    <Content Include="img\WinRAR.png" />
+    <Content Include="img\WPS.jpg" />
+    <Content Include="img\WPS_2.png" />
+    <Content Include="img\北信源.jpg" />
+    <Content Include="img\天擎.png" />
+    <Content Include="img\天擎_2.png" />
+    <Content Include="img\背景.jpg" />
+    <Content Include="img\bk.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -98,20 +98,40 @@ namespace WFRead
             }
             //遍历子文件夹
             DirectoryInfo[] dirInfo = theFolder.GetDirectories();
+            int i = 1;
             foreach (DirectoryInfo NextFolder in dirInfo)
             {
                 //list.Add(NextFolder.ToString());
                 FileInfo[] fileInfo = NextFolder.GetFiles("*.exe*", SearchOption.AllDirectories);
                 TreeNode tn = tree_file.Nodes.Add(NextFolder.Name);
+                tn.ImageIndex = i;
+                tn.Checked = true;
                 foreach (FileInfo NextFile in fileInfo)  //遍历文件
                 {
-                    list.Add(NextFile.FullName);
-                    TreeNode cn = new TreeNode();
-                    cn.Text = NextFile.Name;
-                    cn.Tag = NextFile.FullName;
-                    tn.Nodes.Add(cn);
+                    if (i == 9) {
+                        if (NextFile.Name.Contains("SAP")) {
+                            list.Add(NextFile.FullName);
+                            TreeNode cn = new TreeNode();
+                            cn.Text = NextFile.Name;
+                            cn.Tag = NextFile.FullName;
+                            cn.Checked = true;
+                            cn.ImageIndex = 0;
+                            tn.Nodes.Add(cn);
+                        }
+                    }
+                    else {
+                        list.Add(NextFile.FullName);
+                        TreeNode cn = new TreeNode();
+                        cn.Text = NextFile.Name;
+                        cn.Tag = NextFile.FullName;
+                        cn.Checked = true;
+                        cn.ImageIndex = -1;
+                        tn.Nodes.Add(cn);
+                    }
                 }
+                i++;
             }
+            tree_file.ExpandAll();
             return list;
         }
 
@@ -149,25 +169,7 @@ namespace WFRead
             exep.Exited += new EventHandler(exep_Exited);
             exep.Start();
         }
-        private void tree_file_AfterCheck(object sender, TreeViewEventArgs e)
-        {
-            if (e.Node.Level == 0)
-            {
-                if (e.Node.Checked)
-                {
-                    foreach (TreeNode node in e.Node.Nodes)
-                    {
-                        node.Checked = true;
-                    }
-                }
-                else {
-                    foreach (TreeNode node in e.Node.Nodes)
-                    {
-                        node.Checked = false;
-                    }
-                }
-            }
-        }
+
 
         private void btn_SetIP_Click(object sender, EventArgs e)
         {
@@ -199,7 +201,7 @@ namespace WFRead
                 }
             }
 
-            string _doscmd = "netsh interface ip set address "+ adpName + " static " + _ipaddress + " " + _submask + " " + _gateway;
+            string _doscmd = "netsh interface ip set address " + adpName + " static " + _ipaddress + " " + _submask + " " + _gateway;
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe";
             p.StartInfo.UseShellExecute = false;
@@ -212,7 +214,7 @@ namespace WFRead
             //_doscmd = "netsh interface ip set dns WLAN static " + _dns1;
             //p.StandardInput.WriteLine(_doscmd.ToString());
             p.StandardInput.WriteLine(_doscmd);
-            _doscmd = "netsh interface ip set dns "+ adpName + " static " + _Dns;
+            _doscmd = "netsh interface ip set dns " + adpName + " static " + _Dns;
             p.StandardInput.WriteLine(_doscmd);
             p.StandardInput.WriteLine("exit");
             string output = p.StandardOutput.ReadToEnd();
@@ -234,6 +236,7 @@ namespace WFRead
 
         private void ElecForm_Load(object sender, EventArgs e)
         {
+        
         }
 
         private void btn_ConNet_Click(object sender, EventArgs e)
@@ -252,5 +255,52 @@ namespace WFRead
             string output = p.StandardOutput.ReadToEnd();
             p.Close();//等待程序执行完退出进程
         }
+
+        private void tree_file_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            if (e.Action == TreeViewAction.ByMouse)
+            {
+                if (e.Node.Checked)
+                {
+                    //取消节点选中状态之后，取消所有父节点的选中状态
+                    setChildNodeCheckedState(e.Node, true);
+
+                }
+                else
+                {
+                    //取消节点选中状态之后，取消所有父节点的选中状态
+                    setChildNodeCheckedState(e.Node, false);
+                    //如果节点存在父节点，取消父节点的选中状态
+                    if (e.Node.Parent != null)
+                    {
+                        setParentNodeCheckedState(e.Node, false);
+                    }
+                }
+            }
+        }
+        //取消节点选中状态之后，取消所有父节点的选中状态
+        private void setParentNodeCheckedState(TreeNode currNode, bool state)
+        {
+            TreeNode parentNode = currNode.Parent;
+
+            parentNode.Checked = state;
+            if (currNode.Parent.Parent != null)
+            {
+                setParentNodeCheckedState(currNode.Parent, state);
+            }
+        }
+        //选中节点之后，选中节点的所有子节点
+        private void setChildNodeCheckedState(TreeNode currNode, bool state)
+        {
+            TreeNodeCollection nodes = currNode.Nodes;
+            if (nodes.Count > 0)
+                foreach (TreeNode tn in nodes)
+                {
+
+                    tn.Checked = state;
+                    setChildNodeCheckedState(tn, state);
+                }
+        }
+
     }
 }
